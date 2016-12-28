@@ -1,20 +1,20 @@
-from abc import ABCMeta, abstractmethod
+import abc
 from . import entities
 
-class TaskBaseRepository(object, metaclass=ABCMeta):
+class TaskBaseRepository(abc.ABCMeta('ABC', (object,), {})):
 
-	@abstractmethod
+	@abc.abstractmethod
 	def get(self, id):
 		pass
 
-	@abstractmethod
+	@abc.abstractmethod
 	def add(self, obj):
 		pass
 
-	@abstractmethod
+	@abc.abstractmethod
 	def update(self, obj):
 		pass 
 
-	@abstractmethod
+	@abc.abstractmethod
 	def delete(self, obj):
 		pass
