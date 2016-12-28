@@ -1,0 +1,10 @@
+**/__pycache__/
+**/migrations/
+*.sqlite3
+*.pyc
+**/.coverage
+**/htmlcov/
+**/coverage.xml
+**/xunittest.xml
+**/pylint.out
+/cover/
