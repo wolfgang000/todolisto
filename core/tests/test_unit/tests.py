@@ -1,5 +1,6 @@
 from unittest import TestCase
 from core.entities import Task
+from core.repositories import TaskBaseRepository
 
 class TrackTests(TestCase):
 
@@ -13,3 +14,9 @@ class TrackTests(TestCase):
 		self.assertEqual(task.title,'Title')
 		self.assertEqual(task.description,'text')
 
+class TaskAbstractRepositoryTests(TestCase):
+
+	def test_abstract_instantiation(self):
+		with self.assertRaises(Exception) as context:
+			TaskBaseRepository()
+		self.assertTrue('Can\'t instantiate abstract class' in str(context.exception))
