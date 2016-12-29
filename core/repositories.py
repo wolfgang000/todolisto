@@ -1,6 +1,7 @@
 import abc
 from . import entities
 
+
 class TaskBaseRepository(abc.ABCMeta('ABC', (object,), {})):
 
 	@abc.abstractmethod
@@ -18,3 +19,10 @@ class TaskBaseRepository(abc.ABCMeta('ABC', (object,), {})):
 	@abc.abstractmethod
 	def delete(self, obj):
 		pass
+
+class Repository(abc.ABCMeta('ABC', (object,), {})):
+
+	def __get_user_repo(self):
+		return self.__user_repo
+	
+	user = property(__get_user_repo,)
