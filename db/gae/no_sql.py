@@ -10,7 +10,7 @@ class Task(ndb.Model):
 class TaskRepository(repositories.TaskBaseRepository):
 	def get(self, id):
 		task = entities.Task()
-		db_task = Task(id = id)
+		db_task = Task.get_by_id(id)
 		
 		task.id = id
 		task.title = db_task.title
