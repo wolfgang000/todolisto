@@ -65,15 +65,34 @@ try:
 	except ImportError:
 		print('Note: unable to import appengine_config.')
 
-	from db.gae.no_sql import TaskRepositor
-	
+	from db.gae import no_sql
+	from google.appengine.ext import testbed
+
+
 except KeyError:
         pass
 
 @unittest.skipIf(GAE_HOME == None, "GAE_HOME not define")
 class GaeRepositoriesTests(unittest.TestCase):
-	def test_create_task(self):
-		task_repo = TaskRepository()
+
+	def setUp(self):
+		# First, create an instance of the Testbed class.
+		self.testbed = testbed.Testbed()
+		# Then activate the testbed, which will allow you to use
+		# service stubs.
+		self.testbed.activate()
+		# Next, declare which service stubs you want to use.
+		self.testbed.init_datastore_v3_stub()
+		self.testbed.init_memcache_stub()
+
+	def tearDown(self):
+		# Don't forget to deactivate the testbed after the tests are
+		# completed. If the testbed is not deactivated, the original
+		# stubs will not be restored.
+		self.testbed.deactivate()
+
+	def test_create_and_retrieve_task(self):
+		task_repo = no_sql.TaskRepository()
 		task = Task(title = 'Title',description='Description')
 		task_intance = task_repo.add(task)
 		self.assertIsNotNone(task_intance.id)

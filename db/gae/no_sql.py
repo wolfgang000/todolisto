@@ -22,7 +22,7 @@ class TaskRepository(repositories.TaskBaseRepository):
 		db_task = Task(title = obj.title, description = obj.description)
 		id = db_task.put().id()
 		obj.id = id
-		return id
+		return obj
 
 	def update(self, obj):
 		pass 
