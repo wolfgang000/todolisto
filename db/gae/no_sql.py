@@ -9,18 +9,18 @@ class Task(ndb.Model):
 
 class TaskRepository(repositories.TaskBaseRepository):
 	def get(self, id):
-		track = entities.Track()
+		task = entities.Task()
 		db_task = Task(id = id)
 		
-		track.id = id
-		track.title = db_task.title
-		track.description = db_task.description
+		task.id = id
+		task.title = db_task.title
+		task.description = db_task.description
 		
-		return track
+		return task
 	
 	def add(self, obj):
-		db_track = Track(title = obj.title, description = obj.description)
-		id = db_track.put().id()
+		db_task = Task(title = obj.title, description = obj.description)
+		id = db_task.put().id()
 		obj.id = id
 		return id
 
