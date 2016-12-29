@@ -1,8 +1,7 @@
-runtime: python35
+runtime: python27
 api_version: 1
-threadsafe: yes
+threadsafe: true
 
 handlers:
-- url: .*
-  script: main.app
-
+- url: /.*
+  script: web_app.main.app
