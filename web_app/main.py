@@ -15,11 +15,11 @@
 # [START app]
 import logging
 
-from flask import Flask
-
+from flask import Flask , render_template, url_for
+from flask_restful import reqparse, abort, Api, Resource
 
 app = Flask(__name__)
-
+api = Api(app)
 
 @app.route('/')
 def hello():
@@ -32,3 +32,26 @@ def server_error(e):
     logging.exception('An error occurred during a request.')
     return 'An internal error occurred.', 500
 # [END app]
+
+
+class TaskDetail(Resource):
+    def get(self, id):
+		return "",200
+
+    def delete(self, id):
+		pass
+
+    def put(self, id):
+		pass
+
+class TaskList(Resource):
+    def get(self):
+        return "",200
+
+    def post(self):
+		pass
+
+api.add_resource(TaskList, '/tasks/', endpoint='task-list')
+api.add_resource(TaskDetail, '/tasks/<id>', endpoint='task-detail')
+
+

@@ -9,3 +9,5 @@
 **/pylint.out
 /cover/
 /lib/
+app.yaml
+appengine_config.py
