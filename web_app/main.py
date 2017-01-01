@@ -21,12 +21,17 @@ from flask_restful import reqparse, abort, Api, Resource
 
 if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine/') :
 	#GAE Production config
-	app = Flask(__name__)
+	app = Flask(__name__,static_folder='static', template_folder='templates', )
 	app.debug = False
+
+elif os.getenv('SERVER_SOFTWARE', '').startswith('Development/') :
+	#GAE Develop config
+	app = Flask(__name__,static_folder='static', template_folder='templates', )
+	app.debug = True
 
 else :
 	#Dev config
-	app = Flask(__name__, static_folder='frontend/dist')
+	app = Flask(__name__, static_folder='frontend/dist', template_folder='frontend/dist',)
 	app.debug = True
 
 
@@ -35,7 +40,7 @@ api = Api(app)
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    return render_template('index.html')
 
 
 
