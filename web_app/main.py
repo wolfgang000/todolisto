@@ -23,6 +23,7 @@ if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine/') :
 	#GAE Production config
 	app = Flask(__name__)
 	app.debug = False
+
 else :
 	#Dev config
 	app = Flask(__name__, static_folder='frontend/dist')

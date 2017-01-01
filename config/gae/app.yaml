@@ -3,5 +3,13 @@ api_version: 1
 threadsafe: true
 
 handlers:
+- url: /static
+  static_dir: web_app/static
 - url: /.*
   script: web_app.main.app
+
+skip_files:
+- ^(.*/)?.*\.py[co]$
+- ^(web_app/frontend/.*)
+- ^(htmlcov/.*)
+- ^(.git/.*)
