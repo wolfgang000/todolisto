@@ -1,0 +1,3 @@
+[submodule "web_app/frontend"]
+	path = web_app/frontend
+	url = https://github.com/wolfgang000/angular2-webpack-starter.git

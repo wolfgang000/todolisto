@@ -16,7 +16,7 @@
 // Python
 
         // Path to Python, you can use a custom version of Python by modifying this setting to include the full path. 
-    "python.pythonPath": "/home/wolfgang/.pyenv/versions/todolisto_test/bin/python", 
+    "python.pythonPath": "/home/wolfgang/.pyenv/versions/todolisto_test2.7/bin/python", 
  
     // Path to directory containing the Jedi library (this path will contain the 'Jedi' sub directory). 
     "python.jediPath": "", 

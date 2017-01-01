@@ -14,16 +14,28 @@
 
 # [START app]
 import logging
-
+import os
 from flask import Flask , render_template, url_for
 from flask_restful import reqparse, abort, Api, Resource
 
-app = Flask(__name__)
+
+if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine/') :
+	#GAE Production config
+	app = Flask(__name__)
+	app.debug = False
+else :
+	#Dev config
+	app = Flask(__name__, static_folder='frontend/dist')
+	app.debug = True
+
+
 api = Api(app)
 
+
 @app.route('/')
-def hello():
-    return 'Hello World!'
+def index():
+    return app.send_static_file('index.html ')
+
 
 
 @app.errorhandler(500)
@@ -53,5 +65,6 @@ class TaskList(Resource):
 
 api.add_resource(TaskList, '/tasks/', endpoint='task-list')
 api.add_resource(TaskDetail, '/tasks/<id>', endpoint='task-detail')
+
 
 
