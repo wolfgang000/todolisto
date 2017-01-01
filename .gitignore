@@ -11,3 +11,7 @@
 /lib/
 app.yaml
 appengine_config.py
+web_app/static/*
+!web_app/static/.gitkeep
+web_app/templates/*
+!web_app/templates/.gitkeep
