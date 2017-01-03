@@ -6,13 +6,14 @@ class Status(Enum):
 	ADDED = 3
 	DELETE = 4
 
-class Base:
+class Base(object):
 	def __init__(self):
-		self.__status = Status.ADDED
+		self._status = Status.ADDED
 
+	
 class Task(Base):
 	def __init__(self, id = None, title=None, description=None,):
-		Base.__init__(self)
+		super(Task,self).__init__()
 		self.__set_id(id)
 		self.__set_title(title)
 		self.__set_description(description)

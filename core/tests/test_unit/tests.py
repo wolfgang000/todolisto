@@ -13,7 +13,7 @@ class TrackTests(TestCase):
 		self.assertEqual(task.id,1)
 		self.assertEqual(task.title,'Title')
 		self.assertEqual(task.description,'text')
-		self.assertEqual(task.__status, Status.ADDED)
+		self.assertEqual(task._status, Status.ADDED)
 
 class TaskAbstractRepositoryTests(TestCase):
 
