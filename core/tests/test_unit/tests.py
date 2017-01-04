@@ -1,5 +1,5 @@
 from unittest import TestCase
-from core.entities import Task
+from core.entities import Task , Status
 from core.repositories import TaskBaseRepository
 
 class TrackTests(TestCase):
@@ -13,6 +13,7 @@ class TrackTests(TestCase):
 		self.assertEqual(task.id,1)
 		self.assertEqual(task.title,'Title')
 		self.assertEqual(task.description,'text')
+		self.assertEqual(task._status, Status.ADDED)
 
 class TaskAbstractRepositoryTests(TestCase):
 

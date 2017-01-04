@@ -1,5 +1,19 @@
-class Task:
-	def __init__(self, id = None, title=None, description=None, ):
+from enum import Enum
+
+class Status(Enum):
+	UNCHANGE = 1 
+	MODIFIED = 2
+	ADDED = 3
+	DELETE = 4
+
+class Base(object):
+	def __init__(self):
+		self._status = Status.ADDED
+
+	
+class Task(Base):
+	def __init__(self, id = None, title=None, description=None,):
+		super(Task,self).__init__()
 		self.__set_id(id)
 		self.__set_title(title)
 		self.__set_description(description)
