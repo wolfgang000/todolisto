@@ -53,20 +53,20 @@ def server_error(e):
 
 
 class TaskDetail(Resource):
-    def get(self, id):
+	def get(self, id):
 		return "",200
 
-    def delete(self, id):
+	def delete(self, id):
 		pass
 
-    def put(self, id):
+	def put(self, id):
 		pass
 
 class TaskList(Resource):
-    def get(self):
-        return "",200
+	def get(self):
+		return "",200
 
-    def post(self):
+	def post(self):
 		pass
 
 api.add_resource(TaskList, '/tasks/', endpoint='task-list')

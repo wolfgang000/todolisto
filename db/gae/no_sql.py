@@ -5,17 +5,13 @@ from google.appengine.ext import ndb
 
 class Task(ndb.Model):
 	title = ndb.StringProperty()
-	description = ndb.StringProperty()
 
 class TaskRepository(repositories.TaskBaseRepository):
 	def get(self, id):
 		task = entities.Task()
 		db_task = Task.get_by_id(id)
-		
-		task.id = id
-		task.title = db_task.title
-		task.description = db_task.description
-		
+		task = self.mapper_db_entity(db_task)
+		task._status = entities.Status.UNCHANGE
 		return task
 	
 	def add(self, obj):
@@ -29,6 +25,13 @@ class TaskRepository(repositories.TaskBaseRepository):
 
 	def delete(self, obj):
 		pass
+	
+	def mapper_db_entity(self, db):
+		task = entities.Task()
+		task.id = db.id
+		task.title = db.title
+		return task
+
 
 class Repository(repositories.Repository):
 	pass

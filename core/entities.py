@@ -48,6 +48,6 @@ class List:
 		self.__set_title(title)
 		self.__set_description(description)
 	
-	def add_task(self, task)
+	def add_task(self, task):
 		task.list = self
 		self.__tasks.add(task)
