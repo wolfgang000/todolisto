@@ -15,7 +15,7 @@ class TaskRepository(repositories.TaskBaseRepository):
 		return task
 	
 	def add(self, obj):
-		db_task = Task(title = obj.title, description = obj.description)
+		db_task = Task(title = obj.title, )
 		id = db_task.put().id()
 		obj.id = id
 		return obj
@@ -28,7 +28,7 @@ class TaskRepository(repositories.TaskBaseRepository):
 	
 	def mapper_db_entity(self, db):
 		task = entities.Task()
-		task.id = db.id
+		task.id = db.key.id()
 		task.title = db.title
 		return task
 

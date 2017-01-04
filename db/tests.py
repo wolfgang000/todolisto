@@ -94,12 +94,12 @@ class GaeRepositoriesTests(unittest.TestCase):
 	def test_create_and_retrieve_task(self):
 		task_repo = no_sql.TaskRepository()
 		
-		task_intance = task_repo.add(Task(title = 'Title',description='Description'))
+		task_intance = task_repo.add(Task(title = 'Title',))
 		self.assertIsNotNone(task_intance.id)
 		
 		task_new_intance = task_repo.get(task_intance.id)
 
 		self.assertEqual(task_intance.id,task_new_intance.id)
 		self.assertEqual(task_intance.title ,task_new_intance.title)
-		self.assertEqual(task_intance.description ,task_new_intance.description)
+
 
