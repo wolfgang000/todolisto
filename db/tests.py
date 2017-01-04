@@ -101,5 +101,11 @@ class GaeRepositoriesTests(unittest.TestCase):
 
 		self.assertEqual(task_intance.id,task_new_intance.id)
 		self.assertEqual(task_intance.title ,task_new_intance.title)
+	
+	def test_get_all_tasks(self):
+		task_repo = no_sql.TaskRepository()
+		task_repo.add(Task(title = 'Title1',))
+		task_repo.add(Task(title = 'Title2',))
+		task_repo.add(Task(title = 'Title3',))
 
-
+		self.assertEqual(len(task_repo.get_all()), 3)

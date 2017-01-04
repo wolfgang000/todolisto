@@ -26,6 +26,15 @@ class TaskRepository(repositories.TaskBaseRepository):
 	def delete(self, obj):
 		pass
 	
+	def get_all(self):
+		tasks_db = Task.query()
+		tasks = []
+		for task_db in tasks_db:
+			tasks.append(self.mapper_db_entity(task_db))
+		
+		return tasks
+
+
 	def mapper_db_entity(self, db):
 		task = entities.Task()
 		task.id = db.key.id()
