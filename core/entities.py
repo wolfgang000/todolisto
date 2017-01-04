@@ -1,5 +1,5 @@
 class Task:
-	def __init__(self, id = None, title=None, description=None,):
+	def __init__(self, id = None, title=None, description=None, ):
 		self.__set_id(id)
 		self.__set_title(title)
 		self.__set_description(description)
@@ -27,3 +27,13 @@ class Task:
 	
 	def __str__(self):
 		return str(self.__dict__)
+
+class List:
+	def __init__(self, id = None, title=None, description=None,):
+		self.__set_id(id)
+		self.__set_title(title)
+		self.__set_description(description)
+	
+	def add_task(self, task)
+		task.list = self
+		self.__tasks.add(task)

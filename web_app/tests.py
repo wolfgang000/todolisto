@@ -3,7 +3,7 @@ from web_app import main
 import unittest
 import tempfile
 
-class FlaskrTestCase(unittest.TestCase):
+class FlaskTestCase(unittest.TestCase):
 
 	def setUp(self):
 		main.app.testing = True
