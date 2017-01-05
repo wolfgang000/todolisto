@@ -20,16 +20,9 @@ class TaskBaseRepository(abc.ABCMeta('ABC', (object,), {})):
 	def delete(self, obj):
 		pass
 	
-	def __set_master_repo(self, repo):
-		self.__master_repo = repo
-	
-	master_repo = property(fset=__set_master_repo)
+
 
 class Repository(abc.ABCMeta('ABC', (object,), {})):
-
-	def __init__(self, task_repo,):
-		self.__task_repo = task_repo
-		self.__task_repo.master_repo = self
 
 	def __get_user_repo(self):
 		return self.__user_repo

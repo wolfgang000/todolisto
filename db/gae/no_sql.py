@@ -43,4 +43,6 @@ class TaskRepository(repositories.TaskBaseRepository):
 
 
 class Repository(repositories.Repository):
-	pass
+	
+	def __init__(self):
+		self.__task_repo =  TaskRepository()
