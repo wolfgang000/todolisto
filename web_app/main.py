@@ -14,6 +14,7 @@
 
 # [START app]
 import logging
+from db.gae import no_sql
 import os
 from flask import Flask , render_template, url_for
 from flask_restful import reqparse, abort, Api, Resource
@@ -28,6 +29,7 @@ elif os.getenv('SERVER_SOFTWARE', '').startswith('Development/') :
 	#GAE Develop config
 	app = Flask(__name__,static_folder='static', template_folder='templates', )
 	app.debug = True
+	repository = no_sql.Repository()
 
 else :
 	#Dev config

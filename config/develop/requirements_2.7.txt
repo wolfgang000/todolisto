@@ -12,3 +12,4 @@ nose2==0.6.5
 pylint==1.6.4
 six==1.10.0
 wrapt==1.10.8
+simplejson==3.10.0

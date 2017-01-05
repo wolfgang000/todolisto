@@ -1,6 +1,7 @@
 import os
 from web_app import main
 import web_app.serializers
+import simplejson 
 from core import entities 
 import unittest
 import tempfile
@@ -27,5 +28,13 @@ class SerializersTestCase(unittest.TestCase):
 
 	def test_serialze_entity(self):
 		task_entity = entities.Task(id=1, title='Alfonso')
-		task_serializaer,b = self.task_serialiers.dump(task_entity)
-		self.assertEqual("",b)
+		task_json, errors = self.task_serialiers.dumps(task_entity)
+		self.assertEqual(errors,{})
+		self.assertEqual(task_json,'{"id": 1, "title": "Alfonso"}')
+	
+	def test_serialze_from_json(self):
+		example_task = {"id" : 1, "title":"Alfonso" }
+		task_json = simplejson.dumps( example_task )
+		data, errors = self.task_serialiers.loads(task_json)
+		self.assertDictEqual(errors,{})
+		self.assertDictEqual(data,example_task)

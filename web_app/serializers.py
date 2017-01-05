@@ -1,5 +1,5 @@
 from marshmallow import Schema, fields, pprint
 
 class TaskSchema(Schema):
-	name = fields.Str()
+	title = fields.Str()
 	id = fields.Int()
