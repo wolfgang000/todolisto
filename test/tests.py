@@ -14,3 +14,9 @@ class FuncionalRestSevicesTestCase(unittest.TestCase):
 			url = main.url_for('task-list')
 			r = self.app.get(url)
 			self.assertEqual(r.status_code, 200)
+			
+			example_request_task = {'title':'New_title'}
+
+			r = self.app.post(url, data = example_request_task )
+
+			self.assertEqual(r.data, example_request_task)
