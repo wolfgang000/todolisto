@@ -14,8 +14,9 @@
 
 # [START app]
 import logging
+from core import entities
 import os
-from flask import Flask , render_template, url_for
+from flask import Flask , render_template, url_for, request
 from flask_restful import reqparse, abort, Api, Resource
 
 
@@ -212,11 +213,22 @@ class TaskList(Resource):
 	def get(self):
 		tasks = repository.task.get_all()
 		task_serialiers =  web_app.serializers.TaskSchema()
+		
 		task_json, errors = task_serialiers.dumps(tasks,many=True)
 		return task_json,200
 
 	def post(self):
-		pass
+		print '!!!!!!!!!!JSON:', request.data
+		print 'JSON!!!!!!!!!!:'
+		task_serialiers =  web_app.serializers.TaskSchema()
+		task_json, errors = task_serialiers.loads(request.data)
+		print 'errors:',errors
+		print 'task_json:',task_json
+
+		entities.Task()
+		
+
+		return None,201
 
 api.add_resource(TaskList, '/tasks/', endpoint='task-list')
 api.add_resource(TaskDetail, '/tasks/<id>', endpoint='task-detail')
