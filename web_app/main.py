@@ -218,17 +218,20 @@ class TaskList(Resource):
 		return task_json,200
 
 	def post(self):
-		print '!!!!!!!!!!JSON:', request.data
-		print 'JSON!!!!!!!!!!:'
 		task_serialiers =  web_app.serializers.TaskSchema()
-		task_json, errors = task_serialiers.loads(request.data)
-		print 'errors:',errors
-		print 'task_json:',task_json
-
-		entities.Task()
+		task_request , errors = task_serialiers.loads(request.data)
+		if errors != {} :
+			return errors , 400	
 		
+		task_entity = entities.Task()
+		task_entity.title = task_request['title']
+		response = repository.task.add(task_entity)
 
-		return None,201
+		task_json, errors = task_serialiers.dumps(response)
+		if errors != {}:
+			return errors , 500	
+
+		return task_json,201
 
 api.add_resource(TaskList, '/tasks/', endpoint='task-list')
 api.add_resource(TaskDetail, '/tasks/<id>', endpoint='task-detail')
