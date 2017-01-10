@@ -119,7 +119,7 @@ class GaeRepositoriesTests(unittest.TestCase):
 		task_repo = no_sql.TaskRepository()
 		
 		t = Task(title = 'Title',)
-		self.assertEqual(task_intance._status,Status.ADDED)
+		self.assertEqual(t._status,Status.ADDED)
 		
 		task_intance = task_repo.add(t)
 		self.assertEqual(task_intance._status,Status.UNCHANGE)
