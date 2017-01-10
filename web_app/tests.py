@@ -35,10 +35,7 @@ class SerializersTestCase(unittest.TestCase):
 	def test_serialze_from_json(self):
 		example_task = {"id" : 1, "title":"Alfonso" }
 		task_json = simplejson.dumps( example_task )
-		print 'JSON',task_json
-		task_json = "{\"id\": 1, \"title\": \"Alfonso\"}"
-		print 'N:JSON:', task_json
+		self.task_serialiers =  web_app.serializers.TaskSchema()
 		data, errors = self.task_serialiers.loads(task_json)
-		print 'data1,',data
 		self.assertDictEqual(errors,{})
 		self.assertDictEqual(data,example_task)

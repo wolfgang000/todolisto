@@ -37,10 +37,8 @@ class FuncionalRestSevicesTestCase(unittest.TestCase):
 			example_request_task = '{"title":"New_title"}'
 			r = self.app.post(url, data = example_request_task )
 			self.assertEqual(r.status_code, 201)
+			self.task_serialiers =  web_app.serializers.TaskSchema()
 			data, errors = self.task_serialiers.loads(str(r.data))
-			print r.data
-			print 'data2',data
-			print 'errors',errors
 			self.assertIsNotNone(data.id)
 
 			example_bad_request_task = '{"title1":"New_title"}'

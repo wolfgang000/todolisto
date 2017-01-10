@@ -10,9 +10,12 @@ class TaskRepository(repositories.TaskBaseRepository):
 	def get(self, id):
 		task = entities.Task()
 		db_task = Task.get_by_id(id)
-		task = self.mapper_db_entity(db_task)
-		task._status = entities.Status.UNCHANGE
-		return task
+		if db_task != None: 
+			task = self.mapper_db_entity(db_task)
+			task._status = entities.Status.UNCHANGE
+			return task
+		else :
+			return None
 	
 	def add(self, obj):
 		db_task = Task(title = obj.title, )

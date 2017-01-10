@@ -109,3 +109,8 @@ class GaeRepositoriesTests(unittest.TestCase):
 		task_repo.add(Task(title = 'Title3',))
 
 		self.assertEqual(len(task_repo.get_all()), 3)
+	
+	def test_get_nonexistent_entry(self):
+		task_repo = no_sql.TaskRepository()
+		task = task_repo.get(122)
+		self.assertIsNone(task)

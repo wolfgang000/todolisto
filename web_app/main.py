@@ -201,6 +201,7 @@ def server_error(e):
 
 class TaskDetail(Resource):
 	def get(self, id):
+		repository.task.get(id)
 		return "",200
 
 	def delete(self, id):
