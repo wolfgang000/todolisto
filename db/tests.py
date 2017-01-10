@@ -4,7 +4,7 @@ import sys
 import argparse
 
 from core.entities import Task
-
+from core.entities import Status
 try:
 	GAE_HOME = None
 	GAE_HOME = os.environ['GAE_HOME']
@@ -114,3 +114,28 @@ class GaeRepositoriesTests(unittest.TestCase):
 		task_repo = no_sql.TaskRepository()
 		task = task_repo.get(122)
 		self.assertIsNone(task)
+	
+	def test_full_CRUD_process(self):
+		task_repo = no_sql.TaskRepository()
+		
+		t = Task(title = 'Title',)
+		self.assertEqual(task_intance._status,Status.ADDED)
+		
+		task_intance = task_repo.add(t)
+		self.assertEqual(task_intance._status,Status.UNCHANGE)
+		
+		task_intance.title = 'New Title'
+		self.assertEqual(task_intance._status,Status.MODIFIED)
+		
+		task_intance_with_update = task_repo.update(task_intance)
+		self.assertEqual(task_intance_with_update._status,Status.UNCHANGE)
+		self.assertEqual(task_intance_with_update.title, 'New Title')
+
+		task_instance_with_get = task_repo.get(task_intance_with_update.id)
+		self.assertEqual(task_intance_with_update, task_instance_with_get)
+
+		task_repo.delete(task_instance_with_get)
+
+		task_instance = task_repo.get(task_intance_with_update.id)
+		self.assertIsNone(task_intance)
+
