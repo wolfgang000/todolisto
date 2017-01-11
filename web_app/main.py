@@ -201,11 +201,15 @@ def server_error(e):
 
 class TaskDetail(Resource):
 	def get(self, id):
-		repository.task.get(id)
-		return "",200
+		task = repository.task.get(id)	
+		task_serialiers =  web_app.serializers.TaskSchema()
+		task_json, errors = task_serialiers.dumps(task)
+
+		return task_json,200
 
 	def delete(self, id):
-		pass
+		repository.task.delete_by_id(id)
+		return "",200
 
 	def put(self, id):
 		pass

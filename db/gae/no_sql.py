@@ -44,6 +44,11 @@ class TaskRepository(repositories.TaskBaseRepository):
 		if db_task == None:
 			raise 'Task entity with id ' + obj.id + ' not found in db'
 		db_task.key.delete()
+	def delete_by_id(self, id):
+		db_task = Task.get_by_id(id)
+		if db_task == None:
+			raise Exception('Task entity with id ' + id + ' not found in db')
+		db_task.key.delete()
 	
 	def get_all(self):
 		tasks_db = Task.query()
