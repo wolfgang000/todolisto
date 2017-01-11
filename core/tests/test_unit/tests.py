@@ -9,10 +9,9 @@ class TrackTests(TestCase):
 		self.assertEqual(task,Task())
 	
 	def test_data_instantiation(self):
-		task = Task(id = 1, title='Title', description='text')
+		task = Task(id = 1, title='Title', )
 		self.assertEqual(task.id,1)
 		self.assertEqual(task.title,'Title')
-		self.assertEqual(task.description,'text')
 		self.assertEqual(task._status, Status.ADDED)
 
 class TaskAbstractRepositoryTests(TestCase):
