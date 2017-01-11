@@ -16,7 +16,7 @@
 // Python
 
         // Path to Python, you can use a custom version of Python by modifying this setting to include the full path. 
-    "python.pythonPath": "/home/wolfgang/.pyenv/versions/todolisto_test2.7/bin/python", 
+    "python.pythonPath": "/home/wolfgang/.pyenv/versions/todolisto_dev2.7/bin/python", 
  
     // Path to directory containing the Jedi library (this path will contain the 'Jedi' sub directory). 
     "python.jediPath": "", 
@@ -40,7 +40,7 @@
     "python.linting.flake8Enabled": false, 
  
     // Whether to lint Python files using pydocstyle 
-    "python.linting.pydocstyleEnabled": false, 
+    "python.linting.pydocstyleEnabled": true, 
  
     // Whether to lint Python files using mypy. 
     "python.linting.mypyEnabled": false, 
@@ -91,7 +91,7 @@
     "python.linting.prospectorArgs": [], 
  
     // Arguments passed in. Each argument is a separate item in the array. 
-    "python.linting.pylintArgs": ["--load-plugins", "pylint_django"], 
+    "python.linting.pylintArgs": [], 
  
     // Arguments passed in. Each argument is a separate item in the array. 
     "python.linting.pep8Args": [], 
