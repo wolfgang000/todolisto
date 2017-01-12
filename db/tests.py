@@ -1,9 +1,5 @@
 import unittest
 import config
-import os
-import sys
-import argparse
-
 from core.entities import Task
 from core.entities import Status
 from db.gae import no_sql
