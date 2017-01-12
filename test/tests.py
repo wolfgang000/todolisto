@@ -44,3 +44,8 @@ class FuncionalRestSevicesTestCase(unittest.TestCase):
 			example_bad_request_task = '{"title1":"New_title"}'
 			r = self.app.post(url, data = example_bad_request_task )
 			self.assertEqual(r.status_code, 400)
+		
+	def test_task_CRUD(self):
+		with main.app.test_request_context():
+			url_list = main.url_for('task-list')
+			#url_detail = main.url_for('task-detail')

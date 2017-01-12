@@ -201,18 +201,39 @@ def server_error(e):
 
 class TaskDetail(Resource):
 	def get(self, id):
-		task = repository.task.get(id)	
+		task = repository.task.get(id)
+		if task == None:
+			return "", 404
+
 		task_serialiers =  web_app.serializers.TaskSchema()
 		task_json, errors = task_serialiers.dumps(task)
 
 		return task_json,200
 
 	def delete(self, id):
-		repository.task.delete_by_id(id)
+		task = repository.task.get(id)
+		if task == None:
+			return "", 404
+		repository.task.delete(task)
 		return "",200
 
 	def put(self, id):
-		pass
+		task = repository.task.get(id)
+		if task == None:
+			return "", 404
+		
+		task_serialiers =  web_app.serializers.TaskSchema()
+		task_request , errors = task_serialiers.loads(request.data)
+		if errors != {} :
+			return errors , 400	
+
+		task.title = task_request['title']
+		response = repository.task.update(task)
+		task_json, errors = task_serialiers.dumps(response)
+		if errors != {}:
+			return errors , 500	
+
+		return task_json,201
 
 class TaskList(Resource):
 	def get(self):

@@ -135,8 +135,8 @@ class GaeRepositoriesTests(unittest.TestCase):
 		self.assertEqual(task_intance_with_update.id, task_instance_with_get.id)
 		self.assertEqual(task_intance_with_update.title, task_instance_with_get.title)
 		self.assertEqual(task_intance_with_update._status, task_instance_with_get._status)
+		
 		task_repo.delete(task_instance_with_get)
-
 		task_instance = task_repo.get(task_intance_with_update.id)
-		self.assertIsNone(task_intance)
+		self.assertIsNone(task_instance)
 
