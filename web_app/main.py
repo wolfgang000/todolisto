@@ -43,7 +43,7 @@ elif os.getenv('SERVER_SOFTWARE', '').startswith('Development/'):
 
 else:
 	#Dev config
-	app = Flask(__name__, static_folder='frontend/dist', template_folder='frontend/dist',)
+	app = Flask(__name__, static_folder='static', template_folder='templates',)
 	app.debug = True
 
 if db_type == DatabaseType.GAE_NOSQL:
