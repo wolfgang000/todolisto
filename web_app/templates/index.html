@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <base href="/static/">
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script>
+  		var TASKS_URL = "{{ url_for('task-list',) }}";
+
+  	</script>
+</head>
+{% raw %}
+<body>
+  <div id="tasks">
+
+	<ol>
+	<input v-model="newTask">
+	<button v-on:click="addTask">Add</button>
+    <li v-for="task in tasks">
+      {{ task.title }}
+    </li>
+  </ol>
+
+  </div>
+
+	<script>
+		new Vue({
+			el: '#tasks',
+			data: {
+				newTask : '',
+				selectedTask : null,
+				tasks : null
+			},
+			created: function () {
+				this.fetchData()
+			},
+			watch: {
+				currentBranch: 'fetchData'
+			},
+			methods: {
+				addTask: function () {
+					console.log(this.newTask);
+					request = { title : this.newTask };
+					var self = this;
+					Promise.resolve(
+						$.ajax({
+							type: "POST",
+							url: TASKS_URL ,
+							data: JSON.stringify(request),
+							dataType: 'json',
+							contentType: 'application/json',
+						})	
+					).then(
+						function(response) {
+							console.log(response)
+							self.tasks.push(JSON.parse(response))
+						},
+						function(error) {
+							console.log("Failed!", error);
+						}
+					);
+				},
+				fetchData: function () {
+					var self = this;
+					Promise.resolve(
+							$.ajax({
+								type: "GET",
+								url: TASKS_URL ,
+								tryCount : 0,
+								retryLimit : 3
+							})	
+						).then(
+						function(response) {
+							console.log(response)
+							self.tasks = JSON.parse(response);
+						},
+						function(error) {
+							console.log("Failed!", error);
+						}
+					);
+				}
+			},
+		})
+	</script>
+</body>
+{% endraw %}
+</html>
