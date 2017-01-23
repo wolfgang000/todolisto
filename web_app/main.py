@@ -115,6 +115,7 @@ class TaskList(Resource):
 
 	def post(self):
 		task_serialiers =  web_app.serializers.TaskSchema()
+		logging.info(request.data)
 		task_request , errors = task_serialiers.loads(request.data)
 		if errors != {} :
 			return errors , 400	
