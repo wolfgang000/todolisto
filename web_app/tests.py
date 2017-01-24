@@ -1,4 +1,5 @@
 import os
+import datetime
 from web_app import main
 import web_app.serializers
 from core import entities 
@@ -21,12 +22,13 @@ class SerializersTestCase(unittest.TestCase):
 		self.task_serialiers =  web_app.serializers.TaskSchema()
 	
 	def test_task_serializer(self):
-		task_dict ={'title':'Alfon','id':4}
+		task_dict = {'title':'Alfon','id': 4, 'created_at' : datetime.datetime.utcnow() }
 		task_serializaer = self.task_serialiers.dumps(task_dict)
-		#self.assertDictEqual(task_dict,task_serializaer.data)
+		#self.assertEqual(task_dict,task_serializaer.data)
 
 	def test_serialze_entity(self):
 		task_entity = entities.Task(id=1, title='Alfonso')
-		task_serializaer = self.task_serialiers.dumps(task_entity)
+		task_serializaer  = self.task_serialiers.dumps(task_entity)
+		self.assertDictEqual(task_serializaer.errors , {} )
 		self.assertIsNotNone(task_serializaer.data)
 		self.assertGreater(len(task_serializaer.data),10)
