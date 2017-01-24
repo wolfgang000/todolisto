@@ -73,7 +73,11 @@
 						).then(
 						function(response) {
 							console.log(response)
-							self.tasks = JSON.parse(response).sort(function(a, b){return a.id>b.id});;
+							self.tasks = JSON.parse(response).sort(
+								function(a, b){
+										return  new Date(b.created_at) - new Date(a.created_at);
+									}
+								);
 						},
 						function(error) {
 							console.log("Failed!", error);
