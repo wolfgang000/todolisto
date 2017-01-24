@@ -5,6 +5,7 @@ from google.appengine.ext import ndb
 
 class Task(ndb.Model):
 	title = ndb.StringProperty()
+	created_at = ndb.DateTimeProperty()
 
 class TaskRepository(repositories.TaskBaseRepository):
 	def get(self, id):
@@ -30,6 +31,7 @@ class TaskRepository(repositories.TaskBaseRepository):
 			if db_task == None:
 				raise 'Task entity with id ' + obj.id + ' not found in db'
 			db_task.title = obj.title
+			db_task.created_at = obj.created_at
 			db_task = db_task.put()
 			if db_task == None:
 				raise 'Task entity with id ' + obj.id + ' not is not able to update in db'
@@ -63,6 +65,7 @@ class TaskRepository(repositories.TaskBaseRepository):
 		task = entities.Task()
 		task.id = db.key.id()
 		task.title = db.title
+		task.created_at = db.created_at
 		return task
 
 
