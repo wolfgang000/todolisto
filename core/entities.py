@@ -53,7 +53,7 @@ class Task(Base):
 		comparation = (
 			self.id == other.id
 			and self.title == other.title
-			#  and self.created_at == other.title 
+			and self.created_at == other.created_at 
 		)
 		return comparation
 	
