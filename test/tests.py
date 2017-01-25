@@ -3,6 +3,8 @@ from web_app import main
 import web_app
 import unittest
 import tempfile
+import json
+from unidecode import unidecode
 from google.appengine.ext import testbed
 
 class FuncionalRestSevicesTestCase(unittest.TestCase):
@@ -38,8 +40,11 @@ class FuncionalRestSevicesTestCase(unittest.TestCase):
 			r = self.app.post(url, data = example_request_task )
 			self.assertEqual(r.status_code, 201)
 			self.task_serialiers =  web_app.serializers.TaskSchema()
-			data, errors = self.task_serialiers.loads(str(r.data))
-			self.assertIsNotNone(data.id)
+			task_obj = self.task_serialiers.loads(json.loads(r.data))
+			self.assertDictEqual(task_obj.errors, {} )
+			self.assertIsNotNone(task_obj.data['id'])
+			self.assertIsNotNone(task_obj.data['title'])
+			self.assertIsNotNone(task_obj.data['created_at'])
 
 			example_bad_request_task = '{"title1":"New_title"}'
 			r = self.app.post(url, data = example_bad_request_task )

@@ -19,7 +19,7 @@ class TaskRepository(repositories.TaskBaseRepository):
 			return None
 	
 	def add(self, obj):
-		db_task = Task(title = obj.title, )
+		db_task = Task(title = obj.title, created_at = obj.created_at )
 		id = db_task.put().id()
 		obj.id = id
 		obj._status = entities.Status.UNCHANGE

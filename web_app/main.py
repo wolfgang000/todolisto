@@ -121,7 +121,11 @@ class TaskList(Resource):
 			return errors , 400	
 		
 		task_entity = entities.Task()
-		task_entity.title = task_request['title']
+		try:
+			task_entity.title = task_request['title']
+		except KeyError:
+			return '', 400	
+		
 		response = repository.task.add(task_entity)
 
 		task_json, errors = task_serialiers.dumps(response)
