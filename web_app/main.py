@@ -69,6 +69,10 @@ def server_error(e):
 # [END app]
 
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
 class TaskDetail(Resource):
 	def get(self, id):
 		task = repository.task.get(id)
@@ -107,13 +111,24 @@ class TaskDetail(Resource):
 
 class TaskList(Resource):
 	def get(self):
-		tasks = repository.task.get_all()
+		id_token = request.headers['Authorization'].split(' ').pop()
+		user = repository.user.get_by_token(id_token)
+		if user == None:
+			return 'Unauthorized', 401
+
+		tasks = repository.task.get_all_by_user(user)
 		task_serialiers =  web_app.serializers.TaskSchema()
 		
 		task_json, errors = task_serialiers.dumps(tasks,many=True)
 		return task_json,200
 
 	def post(self):
+
+		id_token = request.headers['Authorization'].split(' ').pop()
+		user = repository.user.get_by_token(id_token)
+		if user == None:
+			return 'Unauthorized', 401
+
 		task_serialiers =  web_app.serializers.TaskSchema()
 		logging.info(request.data)
 		task_request , errors = task_serialiers.loads(request.data)
@@ -123,6 +138,7 @@ class TaskList(Resource):
 		task_entity = entities.Task()
 		try:
 			task_entity.title = task_request['title']
+			task_entity.user = user
 		except KeyError:
 			return '', 400	
 		

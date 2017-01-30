@@ -13,7 +13,7 @@ class Base(object):
 
 	
 class Task(Base):
-	def __init__(self, id = None, title=None, created_at = None):
+	def __init__(self, id = None, title=None, created_at = None, created_by = None):
 		super(Task, self).__init__()
 		self.__set_id(id)
 		self.__set_title(title)
@@ -21,6 +21,8 @@ class Task(Base):
 			self.__set_created_at(datetime.datetime.utcnow())
 		else:
 			self.__set_created_at(created_at)
+		
+		self.created_by = created_by
 
 	def __get_id(self):
 		return self.__id
@@ -59,6 +61,13 @@ class Task(Base):
 	
 	def __str__(self):
 		return str(self.__dict__)
+
+
+class User:
+ 	def __init__(self, id = None, name=None, email=None,):
+		 self.id = id
+		 self.name = name
+		 self.email = email
 
 class List:
 	def __init__(self, id = None, title=None, description=None,):

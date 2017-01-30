@@ -5,6 +5,9 @@
   <base href="/static/">
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
 	<script>
   		var TASKS_URL = "{{ url_for('task-list',) }}";
 
@@ -25,6 +28,61 @@
   </div>
 
 	<script>
+
+  var userIdToken = null;
+
+$(function(){
+  // This is the host for the backend.
+  // TODO: When running Firenotes locally, set to http://localhost:8081. Before
+  // deploying the application to a live production environment, change to
+  // https://backend-dot-<PROJECT_ID>.appspot.com as specified in the
+  // backend's app.yaml file.
+  var backendHostUrl = 'http://localhost:8080';
+
+  // Initialize Firebase
+  // TODO: Replace with your project's customized code snippet
+  var config = {
+    apiKey: "AIzaSyC3HlGlSkot2CJyH4DuLpdLcnfoddp4gCU",
+    authDomain: "testupload-140219.firebaseapp.com",
+    databaseURL: "https://testupload-140219.firebaseio.com",
+    storageBucket: "testupload-140219.appspot.com",
+  };
+
+  // This is passed into the backend to authenticate the user.
+
+
+  // Firebase log-in
+  function configureFirebaseLogin() {
+
+    firebase.initializeApp(config);
+
+    // [START onAuthStateChanged]
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+		console.log('Logging success')
+        var name = user.displayName;
+        var welcomeName = name ? name : user.email;
+
+        user.getToken().then(function(idToken) {
+          userIdToken = idToken;
+        });
+
+      } else {
+			 console.log('fail')
+			 window.location.replace("http://localhost:8080/login");
+
+      }
+    // [END onAuthStateChanged]
+
+    });
+
+  }
+configureFirebaseLogin();
+
+
+
+
+
 		new Vue({
 			el: '#tasks',
 			data: {
@@ -50,11 +108,14 @@
 							data: JSON.stringify(request),
 							dataType: 'json',
 							contentType: 'application/json',
+							headers: {
+									'Authorization': 'Bearer ' + userIdToken
+								}
 						})	
 					).then(
 						function(response) {
 							console.log(response)
-							self.tasks.push(JSON.parse(response))
+							self.fetchData()
 						},
 						function(error) {
 							console.log("Failed!", error);
@@ -62,13 +123,17 @@
 					);
 				},
 				fetchData: function () {
+					console.log('token:'+userIdToken)
 					var self = this;
 					Promise.resolve(
 							$.ajax({
 								type: "GET",
 								url: TASKS_URL ,
 								tryCount : 0,
-								retryLimit : 3
+								retryLimit : 3,
+								headers: {
+									'Authorization': 'Bearer ' + userIdToken
+								}
 							})	
 						).then(
 						function(response) {
@@ -80,12 +145,34 @@
 								);
 						},
 						function(error) {
+							self.tasks = []
 							console.log("Failed!", error);
 						}
 					);
 				}
 			},
 		})
+
+
+
+
+
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</script>
 </body>
 {% endraw %}
